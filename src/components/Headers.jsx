@@ -1,6 +1,8 @@
 import React from "react";
-import Logo from "./img/logo.png";
+import Logo from "../img/logo.png";
 import {MdShoppingBasket} from "react-icons/md";
+import Avatar from "../img/avatar.png";
+
 const Header =()=>{
     return (
         <header className="fixed z-50 w-screen p-5 px-20">
@@ -20,11 +22,11 @@ const Header =()=>{
                             Menu
                         </li>
                         <li className="text-base text-textColor hover:text-headingColor
-                        duration-00 transition-all ease-in-out cursor-pointer">
+                        duration-00 transition-all ease-in-out cursor-pointer gap-5`">
                             About Us
                         </li>
                     </ul>
-                    <div className="relative flex items-center justify-center">
+                    <div className="relative flex items-center justify-center pl-0.5 pr-[20px]">
                         <MdShoppingBasket className="text-textColor text-2xl ml-5
                         cursor-pointer"/>
                         <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg
@@ -32,6 +34,7 @@ const Header =()=>{
                             <p className="text-xs text-white font-semibold">2</p>
                         </div>
                     </div>
+                    <img src ={Avatar} className="w-9 min-w-[40px] h-9 min-h-[40px] drop-shadow-2xl" alt="userprofile" />
                 </div>
             </div>
             <div className="flex md:hidden w-full h-full"></div>
