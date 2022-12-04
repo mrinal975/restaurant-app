@@ -1,6 +1,7 @@
 import React from "react";
 import Logo from "../img/logo.png";
 import {MdShoppingBasket} from "react-icons/md";
+import { motion } from "framer-motion";
 import Avatar from "../img/avatar.png";
 
 const Header =()=>{
@@ -34,7 +35,9 @@ const Header =()=>{
                             <p className="text-xs text-white font-semibold">2</p>
                         </div>
                     </div>
-                    <img src ={Avatar} className="w-9 min-w-[40px] h-9 min-h-[40px] drop-shadow-2xl" alt="userprofile" />
+                    <motion.img src ={Avatar} whileTap={{scale:0.6}}
+                    className="w-9 min-w-[40px] h-9 min-h-[40px] drop-shadow-2xl cursor-pointer" 
+                    alt="userprofile" />
                 </div>
             </div>
             <div className="flex md:hidden w-full h-full"></div>
