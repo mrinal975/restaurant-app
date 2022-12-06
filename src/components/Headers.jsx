@@ -19,7 +19,7 @@ const Header =()=>{
 
     const [isMenu, setIsMenu]  = useState(false);
 
-    const login = async()=>{
+    const login = async() =>{
         if(!user){
             const {user: {refreshToken, providerData}} = await signInWithPopup(firebaseAuth, provider);
             dispath({
@@ -33,6 +33,15 @@ const Header =()=>{
         }
         
     };
+    const logout = async() =>{
+        setIsMenu(false);
+        localStorage.clear();
+        dispath({
+            type:actionType.SET_USER,
+            user:null
+        });
+    };
+
     return (
         <header className="fixed z-50 w-screen p-5 px-20">
             <div className="hidden md:flex w-full h-full items-center justify-between">
@@ -41,7 +50,11 @@ const Header =()=>{
                     <p className="text-headingColor text-xl font-bold">City</p>     
                 </Link>
                 <div className="flex items-cemter">
-                    <ul className="flex items-center gap-8 ml-auto">
+                    <motion.ul 
+                    initial={{opacity:0,x:200}}
+                    animate={{opacity:1,x:0}}
+                    exit={{opacity: 0, x:200}}
+                    className="flex items-center gap-8 ml-auto">
                         <li className="text-base text-textColor hover:text-headingColor
                         duration-00 transition-all ease-in-out cursor-pointer">
                             Home
@@ -54,7 +67,7 @@ const Header =()=>{
                         duration-00 transition-all ease-in-out cursor-pointer gap-5`">
                             About Us
                         </li>
-                    </ul>
+                    </motion.ul>
                     <div className="relative flex items-center justify-center pl-0.5 pr-[20px]">
                         <MdShoppingBasket className="text-textColor text-2xl ml-5
                         cursor-pointer"/>
@@ -90,7 +103,9 @@ const Header =()=>{
                                 )}
                                 <p className="py-2 flex items-center gap-3
                                 cursor-pointer tranaition-all duration-100 ease-in-out text-textColor
-                                text-base hover:bg-slate-100">Logout <MdLogout /> </p>
+                                text-base hover:bg-slate-100"
+                                onClick={logout}
+                                >Logout <MdLogout /> </p>
                             </motion.div>
                             )
                         }
