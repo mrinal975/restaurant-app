@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../img/logo.png";
-import {MdShoppingBasket, MdAdd, MdLogout} from "react-icons/md";
+import {MdShoppingBasket, MdAdd, MdLogout, MdMonetizationOn} from "react-icons/md";
 import { motion } from "framer-motion";
 import Avatar from "../img/avatar.png";
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { app } from "../firebase.config";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
+import { useState } from "react";
 
 const Header =()=>{
 
@@ -15,6 +16,8 @@ const Header =()=>{
     const provider = new GoogleAuthProvider();
     
     const [{user}, dispath] = useStateValue();
+
+    const [isMenu, setIsMenu]  = useState(false);
 
     const login = async()=>{
         if(!user){
@@ -24,6 +27,9 @@ const Header =()=>{
                 user: providerData[0]
             });
             localStorage.setItem("user", JSON.stringify(providerData[0]));
+        }
+        else{
+            setIsMenu(!isMenu);
         }
         
     };
@@ -67,21 +73,28 @@ const Header =()=>{
                         alt="userprofile" 
                         onClick={login}
                         />
-                
-                        <div className="w-40 bg-gray shadow-xl flex
-                        flex-col rounded-lg absolute
-                        px-4 py-2 left-0">
-                            {user && user.email=="mrinal35-975@diu.edu.bd" && (
-                                <Link to={'/createItem'} className="py-2 flex items-center gap-3
+                        {isMenu &&(
+                            <motion.div 
+                            initial={{ opacity:0, scale: 0.6}}
+                            animate={{ opacity:1, scale: 1}}
+                            exit={{ opacity:0, scale: 0.6 }}
+                             className="w-40 bg-gray shadow-xl flex
+                                flex-col rounded-lg absolute
+                                px-4 py-2 left-0">
+                                {user && user.email=="mrinal35-975@diu.edu.bd" && (
+                                    <Link to={'/createItem'} className="py-2 flex items-center gap-3
+                                    cursor-pointer tranaition-all duration-100 ease-in-out text-textColor
+                                    text-base hover:bg-slate-100">
+                                    New item <MdAdd />
+                                    </Link>
+                                )}
+                                <p className="py-2 flex items-center gap-3
                                 cursor-pointer tranaition-all duration-100 ease-in-out text-textColor
-                                text-base hover:bg-slate-100">
-                                New item <MdAdd />
-                                </Link>
-                            )}
-                            <p className="py-2 flex items-center gap-3
-                            cursor-pointer tranaition-all duration-100 ease-in-out text-textColor
-                            text-base hover:bg-slate-100">Logout <MdLogout /> </p>
-                        </div>
+                                text-base hover:bg-slate-100">Logout <MdLogout /> </p>
+                            </motion.div>
+                            )
+                        }
+                        
                     </div>
                 </div>
             </div>
