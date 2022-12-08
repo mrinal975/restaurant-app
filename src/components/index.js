@@ -1,11 +1,4 @@
-import React from "react";
-
-const App = ()=>{
-    return (
-        <div className="w-screen h-screen flex items-center text-blue-600">
-            App
-        </div>
-    )
-}
-
-export default App;
+export { defaut as Header } from "./Headers";
+export { defaut as MainContainer } from "./MainContainer";
+export { defaut as CreateContainer } from "./CreateContainer";
+export { defaut as HomeContainer } from "./HomeContainer";
