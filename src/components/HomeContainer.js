@@ -1,7 +1,7 @@
 import React from "react";
 import Delivery from "../img/delivery.png";
 import HeroBg from "../img/heroBg.png";
-import I1 from "../img/i1.png";
+import { heroData } from "../utils/Data";
 
 const HomeContainer = () => {
   return (
@@ -42,25 +42,39 @@ const HomeContainer = () => {
         </button>
       </div>
       <div className="py-2  flex-1 flex items-center">
-        <div className="w-full flex items-center justify-center relative">
+        <div className="w-full flex flex-1 items-center justify-center relative">
           <img src={HeroBg} className="m-auto h-650" alt="hero bg" />
 
           <div
-            className="w-full h-full absolute top-0 left-0 items-center justify-center
-                      py-4 px-32"
+            className="flex flex-1 flex-wrap w-full items-center justify-center
+                      py-4   h-full absolute top-0 left-0"
           >
-            <div
-              className="w-190 p-4 bg-cardOverlay backdrop-blur-md rounded-md
-             flex flex-col item-center justify-center text-center"
-            >
-              <img src={I1} className="w-40 -mt-20" alt="i1" />
-              <p className="text-base font-semibold text-textColor ">
-                Icecreme
-              </p>
-              <p className="text-sm text-lightTextGray font-semibold">
-                Chocolate & vanilla
-              </p>
-            </div>
+            {heroData &&
+              heroData.map((n) => (
+                <div
+                  key={n.id}
+                  className=" lg:w-190 p-4 min-w-[190px] bg-cardOverlay 
+                  backdrop-blur-md rounded-3xl text-center
+                  flex flex-col item-center justify-center 
+                  drop-shadow-lg"
+                >
+                  <img
+                    src={n.imageSrc}
+                    className="w-20 lg:w-40 lg:-mt-20 -mt-10 "
+                    a
+                    lt="i1"
+                  />
+                  <p className="text-base lg:text-xl font-semibold text-textColor ">
+                    {n.name}
+                  </p>
+                  <p className="text-[11px] lg:text-sm text-lightTextGray font-semibold my-1 lg:my-3">
+                    {n.decp}
+                  </p>
+                  <p className="text-sm font-semibold text-headingColor">
+                    <span className="text-xs text-red-600">$</span> {n.price}
+                  </p>
+                </div>
+              ))}
           </div>
         </div>
       </div>
