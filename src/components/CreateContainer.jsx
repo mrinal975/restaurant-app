@@ -10,11 +10,10 @@ import {
 import { categories } from "../utils/data";
 import Loader from "./Loader";
 import {
-  getStorage,
   ref,
-  uploadBytes,
   uploadBytesResumable,
   getDownloadURL,
+  deleteObject,
 } from "firebase/storage";
 import { storage } from "../firebase.config";
 const CreateContainer = () => {
@@ -31,7 +30,10 @@ const CreateContainer = () => {
   const uploadImage = (e) => {
     setIsLoading(true);
     const imageFile = e.target.files[0];
-    const storageRef = ref(storage, `Images/${Date.now()}-${imageFile.name}`);
+    const storageRef = ref(
+      storage,
+      `Images/${Date.now()}-${imageFile.name}`
+    );
     const uploadTask = uploadBytesResumable(storageRef, imageFile);
     // console.log(storage);
     uploadTask.on(
@@ -64,8 +66,55 @@ const CreateContainer = () => {
       }
     );
   };
-  const deleteImage = () => {};
-  const saveDetails = () => {};
+  const deleteImage = () => {
+    setIsLoading(true);
+    console.log("imageAsset", imageAsset);
+    const deleteRef = ref(storage, imageAsset);
+    console.log("deleteRef", deleteRef);
+    deleteObject(deleteRef).then(() => {
+      setImageAsset(null);
+      setIsLoading(false);
+      setFields(true);
+      setMsg("Image deleted successfully");
+      setAlertStatus("success");
+      setTimeout(() => {
+        setFields(false);
+      }, 4000);
+    });
+  };
+  const saveDetails = () => {
+    setIsLoading(true);
+    try {
+      if (!title || !calories || !price || !categories || !calories) {
+        setFields(true);
+        setMsg("Required fields can't be empty");
+        setAlertStatus("danger");
+        setTimeout(() => {
+          setFields(false);
+          setIsLoading(false);
+        });
+      } else {
+        const data = {
+          id: `${Date.now()}`,
+          title: title,
+          imageURL: imageAsset,
+          category: category,
+          calories: calories,
+          qty: 1,
+          price: price,
+        };
+      }
+    } catch (error) {
+      console.log(error);
+      setFields(true);
+      setMsg("Error while ");
+      setAlertStatus("danger");
+      setTimeout(() => {
+        setFields(false);
+        isLoading(false);
+      }, 4000);
+    }
+  };
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center">
