@@ -17,6 +17,7 @@ import {
 } from "firebase/storage";
 import { storage } from "../firebase.config";
 import { saveItem } from "../utils/firebaseFunctions";
+
 const CreateContainer = () => {
   const [title, setTitle] = useState("");
   const [calories, setCalories] = useState("");
@@ -31,10 +32,7 @@ const CreateContainer = () => {
   const uploadImage = (e) => {
     setIsLoading(true);
     const imageFile = e.target.files[0];
-    const storageRef = ref(
-      storage,
-      `Images/${Date.now()}-${imageFile.name}`
-    );
+    const storageRef = ref(storage, `Images/${Date.now()}-${imageFile.name}`);
     const uploadTask = uploadBytesResumable(storageRef, imageFile);
     // console.log(storage);
     uploadTask.on(
@@ -67,6 +65,7 @@ const CreateContainer = () => {
       }
     );
   };
+
   const deleteImage = () => {
     setIsLoading(true);
     console.log("imageAsset", imageAsset);
@@ -83,17 +82,19 @@ const CreateContainer = () => {
       }, 4000);
     });
   };
+
   const saveDetails = () => {
     setIsLoading(true);
     try {
       if (!title || !calories || !price || !categories || !calories) {
         setFields(true);
+        console.log("validation..........");
         setMsg("Required fields can't be empty");
         setAlertStatus("danger");
         setTimeout(() => {
           setFields(false);
-          setIsLoading(false);
-        });
+        }, 4000);
+        setIsLoading(false);
       } else {
         const data = {
           id: `${Date.now()}`,
