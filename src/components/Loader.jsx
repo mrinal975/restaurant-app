@@ -1,6 +1,6 @@
 import React from "react";
 
-const Leading = () => {
+const Loader = () => {
   return (
     <div role="status">
       <svg
@@ -24,4 +24,4 @@ const Leading = () => {
   );
 };
 
-export default Leading;
+export default Loader;
