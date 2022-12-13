@@ -68,9 +68,7 @@ const CreateContainer = () => {
 
   const deleteImage = () => {
     setIsLoading(true);
-    console.log("imageAsset", imageAsset);
     const deleteRef = ref(storage, imageAsset);
-    console.log("deleteRef", deleteRef);
     deleteObject(deleteRef).then(() => {
       setImageAsset(null);
       setIsLoading(false);
@@ -88,7 +86,6 @@ const CreateContainer = () => {
     try {
       if (!title || !calories || !price || !categories || !calories) {
         setFields(true);
-        console.log("validation..........");
         setMsg("Required fields can't be empty");
         setAlertStatus("danger");
         setTimeout(() => {
@@ -109,7 +106,7 @@ const CreateContainer = () => {
         saveItem(data);
         setIsLoading(false);
         setFields(true);
-        setMsg("D ata uploaded successfully");
+        setMsg("Data uploaded successfully");
         setAlertStatus("success");
         clearData();
         setTimeout(() => {
@@ -130,11 +127,10 @@ const CreateContainer = () => {
 
   const clearData = () => {
     setTitle("");
-    setPrice("");
+    setCategory("select Category");
     setCalories("");
     setPrice("");
     setImageAsset(null);
-    setCalories("select Category");
   };
 
   return (
