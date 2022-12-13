@@ -16,6 +16,7 @@ import {
   deleteObject,
 } from "firebase/storage";
 import { storage } from "../firebase.config";
+import { saveItem } from "../utils/firebaseFunctions";
 const CreateContainer = () => {
   const [title, setTitle] = useState("");
   const [calories, setCalories] = useState("");
@@ -103,6 +104,16 @@ const CreateContainer = () => {
           qty: 1,
           price: price,
         };
+        console.log("else ......");
+        saveItem(data);
+        setIsLoading(false);
+        setFields(true);
+        setMsg("D ata uploaded successfully");
+        setAlertStatus("success");
+        clearData();
+        setTimeout(() => {
+          setFields(false);
+        }, 4000);
       }
     } catch (error) {
       console.log(error);
@@ -111,9 +122,18 @@ const CreateContainer = () => {
       setAlertStatus("danger");
       setTimeout(() => {
         setFields(false);
-        isLoading(false);
+        setIsLoading(false);
       }, 4000);
     }
+  };
+
+  const clearData = () => {
+    setTitle("");
+    setPrice("");
+    setCalories("");
+    setPrice("");
+    setImageAsset(null);
+    setCalories("select Category");
   };
 
   return (
