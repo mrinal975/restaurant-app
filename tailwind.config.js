@@ -38,6 +38,7 @@ module.exports = {
         primary: "#f5f3f3",
         rowBg: "rgba(255,131,0,0.1)",
         cardOverlay: "rgba(256,256,256,0.4)",
+        card: "rgba(255,255,255,0.8)",
       },
     },
   },
