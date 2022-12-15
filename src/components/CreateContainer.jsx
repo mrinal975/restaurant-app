@@ -32,7 +32,10 @@ const CreateContainer = () => {
   const uploadImage = (e) => {
     setIsLoading(true);
     const imageFile = e.target.files[0];
-    const storageRef = ref(storage, `Images/${Date.now()}-${imageFile.name}`);
+    const storageRef = ref(
+      storage,
+      `Images/${Date.now()}-${imageFile.name}`
+    );
     const uploadTask = uploadBytesResumable(storageRef, imageFile);
     // console.log(storage);
     uploadTask.on(
@@ -127,7 +130,7 @@ const CreateContainer = () => {
 
   const clearData = () => {
     setTitle("");
-    setCategory("select Category");
+    setCategory("");
     setCalories("");
     setPrice("");
     setImageAsset(null);
@@ -176,7 +179,7 @@ const CreateContainer = () => {
             className="outline-none w-full text-base border-b-2 border-gray-200 p-2
              rounded-md cursor-pointer"
           >
-            <option value="other" className="bg-white">
+            <option value="" className="bg-white">
               Select Category
             </option>
             {categories &&
