@@ -7,6 +7,7 @@ import { useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import MenuContainer from "./MenuContainer";
+import CartContainer from "./CartContainer";
 
 const MainContainer = () => {
   const [{ foodItems }, dispatch] = useStateValue();
@@ -14,6 +15,7 @@ const MainContainer = () => {
   const [scrollValue, setScrollValue] = useState(0);
   useEffect(() => {}, [scrollValue]);
 
+  // console.log("test----", foodItems);
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center ">
       <HomeContainer />
@@ -47,6 +49,8 @@ const MainContainer = () => {
       </section>
 
       <MenuContainer />
+
+      <CartContainer />
     </div>
   );
 };
