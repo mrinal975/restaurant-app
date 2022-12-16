@@ -1,7 +1,7 @@
 import { MdShoppingBasket } from "react-icons/md";
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
-
+import NotFound from "../img/NotFound.svg";
 const RowContainer = ({ flag, data, scrollValue }) => {
   // console.log("row ", data);
   const rowContainer = useRef(0);
@@ -15,11 +15,10 @@ const RowContainer = ({ flag, data, scrollValue }) => {
       scroll-smooth gap-3 ${
         flag
           ? "overflow-x-scroll  scrollbar-none"
-          : "overflow-x-hidden flex-wrap"
+          : "overflow-x-hidden flex-wrap justify-center"
       }`}
     >
-      {data &&
-        data.length > 0 &&
+      {data && data.length > 0 ? (
         data.map((item) => (
           <div
             key={item.id}
@@ -27,12 +26,16 @@ const RowContainer = ({ flag, data, scrollValue }) => {
             flex flex-col items-center justify-between"
           >
             <div className="w-full flex items-center justify-between">
-              <motion.img
+              <motion.div
                 whileHover={{ scale: 1.2 }}
-                src={item.imageURL}
-                alt="image"
-                className="w-44 -mt-8 drop-shadow-2xl"
-              />
+                className="w-40 -mt-8 drop-shadow-2xl overflow-hidden"
+              >
+                <img
+                  src={item.imageURL}
+                  className="w-full h-full object-contain"
+                  alt="image"
+                />
+              </motion.div>
               <motion.div
                 whileTap={{ scale: 0.75 }}
                 className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md"
@@ -44,7 +47,9 @@ const RowContainer = ({ flag, data, scrollValue }) => {
               <p className="text-textColor font-semibold text-base md:text-lg">
                 {item?.title}
               </p>
-              <p className="mt-1 text-sm text-gray-500">{item?.calories} </p>
+              <p className="mt-1 text-sm text-gray-500">
+                {item?.calories}{" "}
+              </p>
               <div className="flex items-center gap-8">
                 <p className="text-lg text-headingColor font-samibold">
                   <span className="text-sm text-red-500">$</span>
@@ -53,7 +58,15 @@ const RowContainer = ({ flag, data, scrollValue }) => {
               </div>
             </div>
           </div>
-        ))}
+        ))
+      ) : (
+        <div className="w-full flex flex-col items-center justify-center">
+          <img src={NotFound} className="h-240" alt="image not found" />
+          <p className="text-xl text-headingColor font-semibold my-4">
+            Items Not Available
+          </p>
+        </div>
+      )}
     </div>
   );
 };
