@@ -10,10 +10,10 @@ import MenuContainer from "./MenuContainer";
 import CartContainer from "./CartContainer";
 
 const MainContainer = () => {
-  const [{ foodItems }, dispatch] = useStateValue();
+  const [{ foodItems, cartShow }, dispatch] = useStateValue();
   const rowContainerRef = useRef();
   const [scrollValue, setScrollValue] = useState(0);
-  useEffect(() => {}, [scrollValue]);
+  useEffect(() => {}, [scrollValue, cartShow]);
 
   // console.log("test----", foodItems);
   return (
@@ -50,7 +50,7 @@ const MainContainer = () => {
 
       <MenuContainer />
 
-      <CartContainer />
+      {cartShow && <CartContainer />}
     </div>
   );
 };
