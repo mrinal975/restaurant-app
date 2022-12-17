@@ -7,7 +7,7 @@ import { BiMinus, BiPlus } from "react-icons/bi";
 import { actionType } from "../context/reducer";
 
 const CartContainer = () => {
-  const [{ cartShow }, dispatch] = useStateValue();
+  const [{ cartShow, cartItems }, dispatch] = useStateValue();
 
   const showCart = () => {
     dispatch({
@@ -41,60 +41,76 @@ const CartContainer = () => {
         {/* cart item section */}
         <div className="w-full h-340 md:h-42 px-6 py-10 flex flex-col gap-3 overflow-y-scroll scrollbar-none">
           {/* cart item */}
-          <div className="w-full p-1 px-2 rounded-lg bg-cartItem flex items-center gap-2">
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/restaurant-app-7726c.appspot.com/o/Images%2F1671129944795-spicy-chicken-curry.jpg?alt=media&token=2a030def-afb2-41cd-b8b9-de2d417a22b9"
-              className="w-20 h-20 max-w-[60px] rounded-full object-contain"
-              alt=""
-            />
 
-            {/* name section */}
-            <div className="flex flex-col gap-2">
-              <p className="text-base text-gray-50">Chocolate vanilla</p>
-              <p className="text-sm block text-gray-300 font-semibold">
-                $8.5
-              </p>
-            </div>
+          {cartItems &&
+            cartItems.map((item) => (
+              <div
+                className="w-full p-1 px-2 rounded-lg bg-cartItem flex items-center gap-2"
+                key={item.id}
+              >
+                <img
+                  src={item?.imageURL}
+                  className="w-20 h-20 max-w-[60px] rounded-full object-contain"
+                  alt=""
+                />
 
-            {/* button section */}
-            <div className="group flex items-center gap-2 ml-auto cursor-pointer">
-              <motion.div whileTap={{ scale: 0.75 }}>
-                <BiMinus className="text-gray-50" />
-              </motion.div>
-              <p className="w-5 h-5 rounded-sm bg-cartBg text-gray-50 flex items-center justify-center">
-                1
-              </p>
-              <motion.div whileTap={{ scale: 0.75 }}>
-                <BiPlus className="text-gray-50" />
-              </motion.div>
-            </div>
-          </div>
+                {/* name section */}
+                <div className="flex flex-col gap-2">
+                  <p className="text-base text-gray-50">{item?.title}</p>
+                  <p className="text-sm block text-gray-300 font-semibold">
+                    $ {item?.price}
+                  </p>
+                </div>
+
+                {/* button section */}
+                <div className="group flex items-center gap-2 ml-auto cursor-pointer">
+                  <motion.div whileTap={{ scale: 0.75 }}>
+                    <BiMinus className="text-gray-50" />
+                  </motion.div>
+                  <p className="w-5 h-5 rounded-sm bg-cartBg text-gray-50 flex items-center justify-center">
+                    1
+                  </p>
+                  <motion.div whileTap={{ scale: 0.75 }}>
+                    <BiPlus className="text-gray-50" />
+                  </motion.div>
+                </div>
+              </div>
+            ))}
         </div>
+
         {/* cart total section */}
-        <div className="w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2">
-          <div className="w-full flex items-center justify-between">
-            <p className="text-gray-400 text-lg">Sub Total</p>
-            <p className="text-gray-400 text-lg">$ 8.5</p>
+        {cartItems && cartItems.length > 0 ? (
+          <div className="w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2">
+            <div className="w-full flex items-center justify-between">
+              <p className="text-gray-400 text-lg">Sub Total</p>
+              <p className="text-gray-400 text-lg">$ 8.5</p>
+            </div>
+            cartShow
+            <div className="w-full flex items-center justify-between">
+              <p className="text-gray-400 text-lg">Delivery</p>
+              <p className="text-gray-400 text-lg">$ 2.5</p>
+            </div>
+            <div className="w-full border-b border-gray-600 my-2"></div>
+            <div className="w-full flex items-center justify-center">
+              <p className="text-gray-400 text-lg">Total</p>
+              <p className="text-gray-400 text-lg">$ 2.5</p>
+            </div>
+            <motion.button
+              whileTap={{ scale: 0.8 }}
+              type="button"
+              className="w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg duration-150 ease-out"
+            >
+              Check out
+            </motion.button>
           </div>
-          <div className="w-full flex items-center justify-between">
-            <p className="text-gray-400 text-lg">Delivery</p>
-            <p className="text-gray-400 text-lg">$ 2.5</p>
+        ) : (
+          <div className="w-full h-full flex flex-col items-center justify-center gap-6">
+            <img />
+            <p className="text-sl text-textColor font-semibold">
+              Add some item to your card
+            </p>
           </div>
-
-          <div className="w-full border-b border-gray-600 my-2"></div>
-
-          <div className="w-full flex items-center justify-center">
-            <p className="text-gray-400 text-lg">Total</p>
-            <p className="text-gray-400 text-lg">$ 2.5</p>
-          </div>
-          <motion.button
-            whileTap={{ scale: 0.8 }}
-            type="button"
-            className="w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg duration-150 ease-out"
-          >
-            Check out
-          </motion.button>
-        </div>
+        )}
       </div>
     </motion.div>
   );
